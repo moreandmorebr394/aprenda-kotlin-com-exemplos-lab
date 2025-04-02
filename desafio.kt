@@ -1,21 +1,29 @@
-// [Template no Kotlin Playground](https://pl.kotl.in/WcteahpyN)
-
-enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
-
-class Usuario
-
-data class ConteudoEducacional(var nome: String, val duracao: Int = 60)
-
-data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) {
-
-    val inscritos = mutableListOf<Usuario>()
-    
-    fun matricular(usuario: Usuario) {
-        TODO("Utilize o parâmetro $usuario para simular uma matrícula (usar a lista de $inscritos).")
-    }
-}
-
 fun main() {
-    TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
-    TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
+    data class ConteudoEducacional(val nome: String, val duracao: Int)
+
+    class Formacao(
+        val nome: String,
+        val nivel: String,
+        val conteudos: List<ConteudoEducacional>
+    ) {
+        private val alunosMatriculados = mutableListOf<String>()
+
+        fun matricularAluno(aluno: String) {
+            alunosMatriculados.add(aluno)
+            println("Aluno $aluno matriculado na formação $nome")
+        }
+        
+        fun listarAlunos() {
+            println("Alunos matriculados na formação $nome: ${alunosMatriculados.joinToString(", ")}")
+        }
+    }
+
+    val conteudo1 = ConteudoEducacional("Kotlin Básico", 10)
+    val conteudo2 = ConteudoEducacional("Kotlin Avançado", 20)
+    val formacao = Formacao("Desenvolvimento Kotlin", "Intermediário", listOf(conteudo1, conteudo2))
+    
+    formacao.matricularAluno("João")
+    formacao.matricularAluno("Maria")
+    
+    formacao.listarAlunos()
 }
